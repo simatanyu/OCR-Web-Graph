@@ -5,6 +5,7 @@ function drawChartFrom(dataList) {
     const x = dataList.map(item => item.timestamp);
     const y = dataList.map(item => item.value);
 
+    // Setting for Plotly.js
     Plotly.newPlot('chart', [{
         x: x,
         y: y,
@@ -25,7 +26,7 @@ const app = createApp({
             newTimestamp: '',
             newValue: null,
             dataList: [
-                {timestamp: '2025-05-02 8', value: 17}, // Test purpose
+                {timestamp: '2025-05-02 8', value: 17}, // Test data points
                 {timestamp: '2025-05-02 12:45', value: 13},
                 {timestamp: '2025-05-02 14:33', value: 22},
                 {timestamp: '2025-05-03', value: 51}
@@ -50,7 +51,7 @@ const app = createApp({
                 alert("Not able to access data:" + error.message);
             }
         },
-
+        // Save exits data in the data sheet
         async saveCurrentData() {
             try {
                 const response = await fetch('/save_data', {
@@ -69,6 +70,7 @@ const app = createApp({
                 alert("Save failed: " + err.message);
             }
         },
+        // Region: Upper button Section; Select Window
         async loadHistoryFiles() {
             try {
                 const response = await fetch('/list_history');
@@ -78,7 +80,7 @@ const app = createApp({
                 console.error("Failed to fetch history file list:", error);
             }
         },
-
+        // Region: Data Sheet; Add data points through button
         addData() {
             if (this.newTimestamp && this.newValue !== null) {
                 this.dataList.push({
@@ -101,6 +103,7 @@ const app = createApp({
                 this.updateChartFromEdit();
             }
         },
+        // Region: Upper button section; load exist csv file from uploads folder
         async loadSelectedFile() {
             if (!this.selectedFile) return;
             try {
@@ -108,11 +111,12 @@ const app = createApp({
                 const data = await response.json();
                 this.dataList =data;
                 drawChartFrom(this.dataList);
-                console.log("loaded", data) //Test purpose May 22
+                console.log("loaded", data)
             } catch (error) {
                 console.error("Failed to load history file list:", error);
             }
         },
+        // Image fetch from camera module
         async fetchImageList() {
             const res =  await fetch('/image_list');
             this.imageList = await res.json();
@@ -135,8 +139,8 @@ const app = createApp({
 
 const vm = app.mount('#app');
 window.app = vm;
-// Delete graph function
-// May 15, Modify to operate on Vue
+
+// Delete graph and data points
 async function deleteAndReload() {
     try {
         const response = await fetch('/delete_data', { method: 'POST' });

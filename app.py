@@ -12,7 +12,6 @@ UPLOAD_FOLDER = "uploads"
 IMAGE_FOLDER = os.path.join(app.root_path, "uploads", "Image")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# May 15, The name of upload folder and local store csv should have different name
 csv_path = os.path.join(UPLOAD_FOLDER, "Extracted_Numbers.csv")
 
 # Check existence of csv
@@ -74,7 +73,6 @@ def delete_data():
         return jsonify({"status": "error", "message": str(e)})
             
 # API: CSV Download Option
-# May 15: This function need test and update
 @app.route("/download_history/<filename>")
 def download_history(filename):
     """Download Option"""
@@ -125,16 +123,19 @@ def save_data():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
+# Image list for dynamic uploads
 @app.route('/image_list')
 def image_list():
     files = [f for f in os.listdir(IMAGE_FOLDER) if f.lower().endswith(('.png', '.jpg'))]
     files.sort()
     return jsonify(files)
 
+# Image fetch
 @app.route('/uploads/Image/<path:filename>')
 def get_image(filename):
     return send_from_directory('uploads/Image', filename)
 
+# Binding script for camera project
 @app.route('/start_ocr', methods=['POST'])
 def start_ocr():
     try:
