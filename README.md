@@ -10,17 +10,16 @@ This project is based on Raspberry Pi and camera module design, so the webpage c
 
 ## Interactive button
 ![Function key](static/Websitematerial/images/FunctionKey-Web.png)
-*Save Data* Save exist //
+*Save Data* Save exist*  
 data on the data table as csv file
 
-*Delete data and Reset* //
+*Delete data and Reset*  
 Delete the data points in the plotly.js, so the user can regraph 
 
-*Start Live OCR* //
+*Start Live OCR*  
 Start Binding script on the raspberry Pi, if available
 
 ## Load history file
-![Select List](static/Websitematerial/images/Load-Web.png) //
-
+![Select List](static/Websitematerial/images/Load-Web.png)  
 Selecting past csv file to plot the graph and refill the sheet.
 
